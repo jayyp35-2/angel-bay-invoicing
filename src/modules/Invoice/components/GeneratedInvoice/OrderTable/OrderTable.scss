@@ -1,0 +1,46 @@
+.Table {
+  font-size: 0.75vw;
+
+  &>thead {
+    background-color: rgb(137, 137, 137);
+
+    &>th {
+      padding: 4px 4px;
+    }
+
+    .Sno {
+      width: 5%;
+    }
+
+    .Item {
+      width: 50%;
+    }
+
+    .Qty,
+    .Rate,
+    .Taxable {
+      width: 8%;
+    }
+  }
+
+  &>tbody {
+
+    .Sno,
+    .Qty {
+      text-align: center;
+      padding: 1vw;
+    }
+
+    .Item {
+      padding: 0.8vw;
+    }
+
+    .Rate,
+    .Taxable,
+    .Igst,
+    .Total {
+      text-align: right;
+      padding: 0.4vw;
+    }
+  }
+}

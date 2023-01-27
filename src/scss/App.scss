@@ -1,0 +1,41 @@
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.App-link {
+  color: rgb(112, 76, 182);
+}
+
+.AuthenticatedApp {
+  padding: 40px;
+  margin-left: 160px;
+  min-height: 100vh;
+  height: fit-content;
+  background: #222222;
+}
+
+@font-face {
+  font-family: champagne;
+  src: url(../assets/fonts/champage-cyrillic.ttf);
+}
+
+.highlight-yellow {
+  background-color: rgb(255, 255, 72);
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
