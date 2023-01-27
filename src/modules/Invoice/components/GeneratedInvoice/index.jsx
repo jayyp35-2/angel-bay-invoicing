@@ -1,8 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import './GeneratedInvoice.scss';
 import OrderTable from './OrderTable';
 
 function GeneratedInvoice() {
+  const buyer_details = useSelector(state => state.invoice.buyer_details);
+  const order_details = useSelector(state => state.invoice.order_details);
   return (
     <div className='GeneratedInvoice'>
       <div className='Header'>
@@ -21,13 +24,15 @@ function GeneratedInvoice() {
         <div className='Inv'>INVOICE</div>
       </div>
 
+
       <div className='Billing'>
         <div>
           <div className='Head'>Bill To:</div>
-          <div>Mrs. Payal Sinha</div>
-          <div>Address Line 1, Line 1, Line 1</div>
-          <div>Address Line 2, Line 2, Line 2 - <span>Pincode</span></div>
-          <div>Contact - 8587013931</div>
+          <div>{buyer_details?.name ?? ""}</div>
+          <div>{buyer_details?.person ?? ""}</div>
+          <div>{buyer_details?.addr1 ?? ""}</div>
+          <div>{buyer_details?.addr2} - <span>{buyer_details?.pincode ?? ""}</span></div>
+          <div>Contact - {buyer_details?.contact ?? ""}</div>
         </div>
         <div className='Right'>
           <div className='Head'>Transport:</div>

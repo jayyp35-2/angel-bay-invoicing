@@ -1,0 +1,12 @@
+.SizeSummary {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-left: 2vw;
+
+  .SingleSize {
+    margin: 0.1vw;
+    border: 1px solid rgb(130, 130, 130);
+    width: 5vw;
+    padding: 0.2vw;
+  }
+}

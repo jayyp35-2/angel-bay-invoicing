@@ -10,7 +10,7 @@ function SizeTable({ sizes, changeSize }) {
         <div key={index} className='Size' style={{ borderLeft: index !== 0 ? "1px solid black" : "" }}>
           <div className='Top'>{size}</div>
           <div className='Bottom'>
-            <input className='size-input' value={sizes[size]} onChange={(e) => changeSize(e, size)} />
+            <input className='size-input' value={sizes[size]} onChange={(e) => { changeSize && changeSize(e, size) }} />
           </div>
         </div>
       ))}
