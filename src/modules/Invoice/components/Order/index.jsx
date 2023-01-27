@@ -5,6 +5,8 @@ import Button from '../../../../common/_custom/button/button';
 import SizeTable from '../../../../common/SizeTable';
 import './Order.scss';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addStyle, changeOrderDetails, changeOrderSizes } from '../../../../store/actions';
 
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
@@ -16,25 +18,30 @@ const options = [
 function Order({ orderData, setOrderData }) {
 
   const navigate = useNavigate();
-
-  const addStyle = () => {
-    setOrderData(orderData => [...orderData, {
-      style: "",
-      barcode: "",
-      sizes: { 'XS': 0, 'S': 0, 'M': 0, 'L': 0, 'XL': 0, '2XL': 0, '3XL': 0 }
-    }])
-  }
+  const dispatch = useDispatch();
+  const order_details = useSelector(state => state.invoice.order_details);
+  const addStyleClick = () => { dispatch(addStyle()) };
 
   const changeValue = (key, index, e) => {
-    const order_data = orderData;
-    order_data[index][key] = e.target.value;
-    setOrderData([...order_data]);
+    dispatch(changeOrderDetails({
+      key,
+      index,
+      value: e.target.value
+    }))
+    // const order_data = orderData;
+    // order_data[index][key] = e.target.value;
+    // setOrderData([...order_data]);
   }
 
-  const changeSize = (sizeKey, index, e) => {
-    const order_data = orderData;
-    order_data[index]['sizes'][sizeKey] = e.target.value;
-    setOrderData([...order_data]);
+  const changeSize = (key, index, e) => {
+    dispatch(changeOrderSizes({
+      key,
+      index,
+      value: e.target.value
+    }))
+    // const order_data = orderData;
+    // order_data[index]['sizes'][sizeKey] = e.target.value;
+    // setOrderData([...order_data]);
   }
 
   return (
@@ -44,7 +51,7 @@ function Order({ orderData, setOrderData }) {
         Order Details
       </div>
 
-      {orderData.map((order, index) => (
+      {order_details.map((order, index) => (
         <div className='display-grid grid-col-3 col-gap-40 mb-50' key={index}>
           <div className='display-flex'>
             <div className='mr-20'>
@@ -68,7 +75,7 @@ function Order({ orderData, setOrderData }) {
         </div>
       ))}
 
-      <Button text='Add Style' className='mt-20' onClick={addStyle} />
+      <Button text='Add Style' className='mt-20' onClick={addStyleClick} />
       <Button text='Generate Invoice and Style Sheet' className='mt-20 mx-40' onClick={() => navigate('/invoice')} />
     </div >
   )

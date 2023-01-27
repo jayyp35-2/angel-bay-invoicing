@@ -1,21 +1,14 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../../../common/_custom/button/button';
 import Input from '../../../../common/_custom/input/input';
+import { changeBuyerDetails, createOrder } from '../../../../store/actions';
 import './Company.scss';
 
-function Company({ createOrder }) {
-  const [values, setValues] = useState({
-    name: "",
-    person: "",
-    contact: "",
-    email: "",
-    altContact: "",
-    addr1: "",
-    addr2: "",
-    landmark: "",
-    pincode: ""
-  });
+function Company({ }) {
+  const dispatch = useDispatch();
+  const values = useSelector(state => state.invoice.buyer_details);
   const [errors, setErrors] = useState({
     name: false,
     person: false,
@@ -24,6 +17,7 @@ function Company({ createOrder }) {
     pincode: false
   })
   const errorsExist = errors.name || errors.person || errors.contact || errors.addr1 || errors.pincode;
+
   const checkErrors = (createOrder) => {
     setErrors(errors => ({
       name: !!!values.name.length,
@@ -43,13 +37,14 @@ function Company({ createOrder }) {
       ...errors,
       [key]: false
     }))
-    const new_values = values;
-    new_values[key] = e.target.value;
-    setValues({ ...new_values });
+    dispatch(changeBuyerDetails({
+      key,
+      value: e.target.value
+    }))
   }
 
   const onCreateClick = () => {
-    checkErrors(createOrder);
+    checkErrors(() => dispatch(createOrder()));
   }
 
   return (
@@ -60,26 +55,26 @@ function Company({ createOrder }) {
       </div>
 
       <div className=''>
-        <Input label="Company Name" required error={errors.name} onChange={(e) => changeValue('name', e)} />
+        <Input label="Company Name" required error={errors.name} onChange={(e) => changeValue('name', e)} value={values.name} />
       </div>
 
       <div className='display-grid grid-col-2 col-gap-40 mt-20'>
-        <Input label="Person Of Contact" required error={errors.person} onChange={(e) => changeValue('person', e)} />
-        <Input label="Contact Number" required error={errors.contact} onChange={(e) => changeValue('contact', e)} />
+        <Input label="Person Of Contact" required error={errors.person} onChange={(e) => changeValue('person', e)} value={values.person} />
+        <Input label="Contact Number" required error={errors.contact} onChange={(e) => changeValue('contact', e)} value={values.contact} />
       </div>
 
       <div className='display-grid grid-col-2 col-gap-40 mt-20'>
-        <Input label="Email Address" onChange={(e) => changeValue('email', e)} />
-        <Input label="Alternate Contact Number" onChange={(e) => changeValue('altContact', e)} />
+        <Input label="Email Address" onChange={(e) => changeValue('email', e)} value={values.email} />
+        <Input label="Alternate Contact Number" onChange={(e) => changeValue('altContact', e)} value={values.altContact} />
       </div>
 
       <div className='Subtitle mt-40'>Shipping Address</div>
-      <Input placeholder={"Address Line 1"} className="my-20" required error={errors.addr1} onChange={(e) => changeValue('addr1', e)} />
-      <Input placeholder={"Address Line 2"} onChange={(e) => changeValue('addr2', e)} />
+      <Input placeholder={"Address Line 1"} className="my-20" required error={errors.addr1} onChange={(e) => changeValue('addr1', e)} value={values.addr1} />
+      <Input placeholder={"Address Line 2"} onChange={(e) => changeValue('addr2', e)} value={values.addr2} />
 
       <div className='display-grid grid-col-2 col-gap-40 mt-20'>
-        <Input label="Landmark" onChange={(e) => changeValue('landmark', e)} />
-        <Input label="Pincode" required error={errors.pincode} onChange={(e) => changeValue('pincode', e)} />
+        <Input label="Landmark" onChange={(e) => changeValue('landmark', e)} value={values.landmark} />
+        <Input label="Pincode" required error={errors.pincode} onChange={(e) => changeValue('pincode', e)} value={values.pincode} />
       </div>
 
       <Button text="Create Order" className='mt-40' onClick={onCreateClick} />
