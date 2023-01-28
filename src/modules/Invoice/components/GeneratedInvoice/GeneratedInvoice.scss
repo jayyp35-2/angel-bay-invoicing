@@ -1,15 +1,15 @@
 .GeneratedInvoice {
-  width: 90%;
+  width: 100%;
   aspect-ratio: 1.414 / 1;
   background-color: white;
-  padding: 1vw;
+  padding: 1.5vw;
   margin-bottom: 30px;
 
   .Header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    padding-bottom: 0.5vw;
+    padding-bottom: 1.5vw;
     border-bottom: 1px solid #e5e5e5;
 
     .Company {
@@ -20,11 +20,12 @@
         font-family: champagne;
         font-weight: bold;
         color: #b91680;
-        font-size: 3vw;
+        font-size: 3.5vw;
         margin-left: -0.5vw;
       }
 
       .Addr {
+        line-height: 130%;
         margin-left: 2vw;
         font-size: 0.9vw;
         font-weight: 600;
@@ -40,7 +41,7 @@
   }
 
   .Billing {
-    margin-top: 0.5vw;
+    margin-top: 1.5vw;
     font-size: 0.9vw;
     line-height: 120%;
 
@@ -49,7 +50,8 @@
 
     .Head {
       font-weight: 600;
-      font-size: 1vw;
+      font-size: 1.2vw;
+      margin-bottom: 10px;
     }
 
     .Right {
@@ -66,7 +68,7 @@
     font-weight: bold;
     background-color: rgb(91, 91, 91);
     width: fit-content;
-    margin: 4vw auto 2vw auto;
+    margin: 3vw auto 2vw auto;
   }
 
   .TableContainer {}

@@ -13,7 +13,7 @@ function RootRoutes() {
       {!!isAuthenticated && (
         <Route path="" element={<PrivateRoutes />}>
           <Route path="create" element={<Invoice />} />
-          <Route path="invoice" element={<><GeneratedInvoice /><ReactPdfInvoice /></>} />
+          <Route path="invoice" element={<><GeneratedInvoice /></>} />
         </Route>
       )}
     </Routes>

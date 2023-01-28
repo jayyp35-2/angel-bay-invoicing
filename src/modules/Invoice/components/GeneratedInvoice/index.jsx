@@ -4,30 +4,43 @@ import { jsPDF } from 'jspdf';
 import { useSelector } from 'react-redux';
 import './GeneratedInvoice.scss';
 import OrderTable from './OrderTable';
+import { useState } from 'react';
 
 function GeneratedInvoice() {
+  const [generating, setGenerating] = useState(false);
   const printRef = React.useRef();
   const buyer_details = useSelector(state => state.invoice.buyer_details);
   const order_details = useSelector(state => state.invoice.order_details);
 
   const handleDownloadPdf = async () => {
+    setGenerating(true);
     const element = printRef.current;
-    const canvas = await html2canvas(element);
+    const canvas = await html2canvas(element, {
+      // scale: 2
+    });
+    var imgData = canvas.toDataURL('image/jpg', 1);
+    var imgWidth = 295;
+    var pageHeight = 210;
+    var imgHeight = canvas.height * imgWidth / canvas.width;
+    var heightLeft = imgHeight;
+    var doc = new jsPDF('l', 'mm', 'a4');
+    var position = 0; // give some top padding to first page
 
-    const input = document.getElementById('pdf-wrapper');
-    html2canvas(input)
-      .then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF('l');
-        pdf.addImage(imgData, 'JPEG', 0, 0);
-        // pdf.output('dataurlnewwindow');
-        pdf.save("download.pdf");
-      })
-      ;
+    doc.addImage(imgData, 'jpg', 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    while (heightLeft >= 0) {
+      position += heightLeft - imgHeight; // top padding for other pages
+      doc.addPage();
+      doc.addImage(imgData, 'jpg', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+    doc.save('file.pdf');
+    setGenerating(false);
   };
 
   return (
-    <div className='GeneratedInvoice' ref={printRef} id="pdf-wrapper">
+    <div className='GeneratedInvoice section-to-print' ref={printRef} id="pdf-wrapper">
       <div className='Header'>
 
         <div className='Company'>
@@ -68,7 +81,7 @@ function GeneratedInvoice() {
         <OrderTable />
       </div>
 
-      <div onClick={handleDownloadPdf}>Print</div>
+      <div onClick={handleDownloadPdf}>{generating ? "LOADING" : "Print"}</div>
     </div>
   )
 }
