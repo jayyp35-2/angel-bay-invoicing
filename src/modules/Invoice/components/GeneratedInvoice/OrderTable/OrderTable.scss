@@ -25,11 +25,23 @@
   }
 
   &>tbody {
+    td {
+      border: 1px solid black;
+    }
 
     .spacer {
-      height: 10vw;
+      height: 7.5vw;
       color: white;
-      border: none;
+      border-right: 1px solid white;
+
+      &>td {
+        border-left: 1px solid white;
+        border-right: 1px solid white;
+      }
+    }
+
+    .smallspacer {
+      height: 3.6vw;
     }
 
     .Sno,

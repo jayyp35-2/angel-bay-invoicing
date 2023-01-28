@@ -27,7 +27,9 @@ function OrderTable() {
       <tbody>
         {order_details?.length && order_details?.map((order, index) => (
           <>
-            {/* {!!(index === 3) && <tr className='spacer'>--</tr>} */}
+            {!!(index === 3 || ((index - 3) % 5 === 0)) ? (
+              <tr className={`spacer ${(index - 3 > 0 && ((index - 3) % 5 === 0)) && 'smallspacer'}`}><td>--</td></tr>
+            ) : null}
             <tr key={index} >
               <td className='Sno'>{index + 1}.</td>
               <td className='Item'>
