@@ -1,5 +1,6 @@
 .Table {
   font-size: 0.75vw;
+  width: 100%;
 
   &>thead {
     background-color: rgb(137, 137, 137);
@@ -24,6 +25,12 @@
   }
 
   &>tbody {
+
+    .spacer {
+      height: 10vw;
+      color: white;
+      border: none;
+    }
 
     .Sno,
     .Qty {

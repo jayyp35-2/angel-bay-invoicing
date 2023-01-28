@@ -26,31 +26,33 @@ function OrderTable() {
 
       <tbody>
         {order_details?.length && order_details?.map((order, index) => (
-          <tr key={index}>
-            <td className='Sno'>{index + 1}.</td>
-            <td className='Item'>
-              <div>
-                <span>Style Name</span>, <span>Style Number - 24JSPD</span>
-              </div>
-              <div className='Row2'>
-                <img
-                  src={"https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=480&q=80"}
-                  height="100px"
-                  alt="check"
-                />
-                <SizeSummary sizes={order.sizes} />
-                {/* <SizeTable sizes={order.sizes} /> */}
-              </div>
-            </td>
-            <td className='Qty'>23</td>
-            <td className='Rate'>4500.00</td>
-            <td className='Taxable'>40000.00</td>
-            <td className='Igst'>
-              <div>₹4300.44</div>
-              <div>@5%</div>
-            </td>
-            <td className='Total'>₹48324.44</td>
-          </tr>
+          <>
+            {/* {!!(index === 3) && <tr className='spacer'>--</tr>} */}
+            <tr key={index} >
+              <td className='Sno'>{index + 1}.</td>
+              <td className='Item'>
+                <div>
+                  <span>Style Name</span>, <span>Style Number - 24JSPD</span>
+                </div>
+                <div className='Row2'>
+                  <img
+                    src={"https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=480&q=80"}
+                    height="100px"
+                    alt="check"
+                  />
+                  <SizeSummary sizes={order.sizes} />
+                </div>
+              </td>
+              <td className='Qty'>23</td>
+              <td className='Rate'>4500.00</td>
+              <td className='Taxable'>40000.00</td>
+              <td className='Igst'>
+                <div>₹4300.44</div>
+                <div>@5%</div>
+              </td>
+              <td className='Total'>₹48324.44</td>
+            </tr>
+          </>
         ))}
 
       </tbody>

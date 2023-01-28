@@ -1,13 +1,33 @@
 import React from 'react';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 import { useSelector } from 'react-redux';
 import './GeneratedInvoice.scss';
 import OrderTable from './OrderTable';
 
 function GeneratedInvoice() {
+  const printRef = React.useRef();
   const buyer_details = useSelector(state => state.invoice.buyer_details);
   const order_details = useSelector(state => state.invoice.order_details);
+
+  const handleDownloadPdf = async () => {
+    const element = printRef.current;
+    const canvas = await html2canvas(element);
+
+    const input = document.getElementById('pdf-wrapper');
+    html2canvas(input)
+      .then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('l');
+        pdf.addImage(imgData, 'JPEG', 0, 0);
+        // pdf.output('dataurlnewwindow');
+        pdf.save("download.pdf");
+      })
+      ;
+  };
+
   return (
-    <div className='GeneratedInvoice'>
+    <div className='GeneratedInvoice' ref={printRef} id="pdf-wrapper">
       <div className='Header'>
 
         <div className='Company'>
@@ -47,6 +67,8 @@ function GeneratedInvoice() {
       <div className='TableContainer'>
         <OrderTable />
       </div>
+
+      <div onClick={handleDownloadPdf}>Print</div>
     </div>
   )
 }
